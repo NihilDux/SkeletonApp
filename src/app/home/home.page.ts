@@ -11,8 +11,6 @@ export class HomePage {
   @ViewChild('titulo', { read: ElementRef }) titulo: ElementRef;
   @ViewChild('nombreInput', { read: ElementRef }) nombreInput: ElementRef;
   @ViewChild('apellidoInput', { read: ElementRef }) apellidoInput: ElementRef;
-  @ViewChild('nivelInput', { read: ElementRef }) nivelInput: ElementRef;
-  @ViewChild('fechaInput', { read: ElementRef }) fechaInput: ElementRef;
 
   userData: any = {
     Nombre: '',
@@ -45,8 +43,6 @@ export class HomePage {
     this.titulo = ElementRef.prototype as any;
     this.nombreInput = ElementRef.prototype as any;
     this.apellidoInput = ElementRef.prototype as any;
-    this.nivelInput = ElementRef.prototype as any;
-    this.fechaInput = ElementRef.prototype as any;
 
   }
 
@@ -89,8 +85,6 @@ export class HomePage {
     const inputElements = [
       this.nombreInput.nativeElement,
       this.apellidoInput.nativeElement,
-      this.nivelInput.nativeElement,
-      this.fechaInput.nativeElement,
     ];
 
     for (let i = 0; i < this.filledFields.length; i++) {
@@ -99,15 +93,13 @@ export class HomePage {
 
       if (inputElement) {
         const animation = this.animationCtrl
-          .create()
-          .addElement(inputElement)
-          .duration(800)
-          .keyframes([
-            { offset: 0, transform: 'translateX(0)' },
-            { offset: 0.5, transform: 'translateY(50%)' },
-          ])
-          .duration(750);
-
+        .create()
+        .addElement(inputElement)
+        .duration(1000) // 1 segundo de duración
+        .keyframes([
+          { offset: 0, transform: 'translateX(0)' }, // Posición inicial
+          { offset: 1, transform: 'translateX(100%)' }, // Movimiento a la derecha
+        ]);
         await animation.play();
       }
 
