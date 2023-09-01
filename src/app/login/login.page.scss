@@ -1,0 +1,11 @@
+.login-card {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  
+    &.animated {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+  }
+  

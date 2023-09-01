@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      <h1 #titulo>Bienvenido</h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<br>
+<ion-content class="ion-text-center">
+  <div class="welcome-message" *ngIf="isLoggedIn()">
+    <h2>Usuario: {{ loggedInUserName }}</h2>
+  </div>
+  <br>
+  <ion-card>
+    <ion-card-content>
+      <ion-item class="input-field ion-padding-horizontal">
+        <ion-label position="floating" class="ion-padding-bottom">Nombre</ion-label>
+        <ion-input #nombreInput type="text" [(ngModel)]="userData.Nombre" (ionChange)="markFieldAsFilled('Nombre')"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-field ion-padding-horizontal">
+        <ion-label position="floating" class="ion-padding-bottom">Apellido</ion-label>
+        <ion-input #apellidoInput type="text" [(ngModel)]="userData.Apellido" (ionChange)="markFieldAsFilled('Apellido')"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-field ion-padding-horizontal">
+        <ion-select #nivelInput label="Nivel de Educación" label-placement="floating" [(ngModel)]="userData.NivelEducacion" (ionChange)="markFieldAsFilled('NivelEducacion')">
+          <ion-select-option *ngFor="let niv of niveles" [value]="niv.id">{{niv.nivel}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="input-field ion-padding-horizontal">
+        <ion-label position="stacked" class="ion-padding-bottom">Fecha de Nacimiento</ion-label>
+        <ion-input #fechaInput class="date-field" type="date" [(ngModel)]="userData.FechaNacimiento" (ionChange)="markFieldAsFilled('FechaNacimiento')"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-button expand="full" (click)="mostrarDatos()" (click)="validateDate()">Mostrar</ion-button>
+      <ion-button expand="full" (click)="limpiarCampos()">Limpiar</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Creado por el imbecil</ion-title>
+  </ion-toolbar>
+</ion-footer>
