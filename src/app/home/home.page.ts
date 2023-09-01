@@ -51,35 +51,40 @@ export class HomePage {
   }
 
   /*Utilizamos el metodo ngAfterViewInit que se ejecutara poster a inicializar la vista*/
-  async ngAfterViewInit(){
+   async ngAfterViewInit() {
+    const titleElement = this.titulo.nativeElement;
 
-    /*Creamos la animacion */
-    const rigthAnimation = this.animationCtrl
+    const translateAnimation = this.animationCtrl
       .create()
-      .addElement(this.titulo.nativeElement)
+      .addElement(titleElement)
       .keyframes([
         { offset: 0, transform: 'translateX(0)' },
         { offset: 0.5, transform: 'translateX(50%)' },
         { offset: 1, transform: 'translateX(0)' },
       ])
-      .duration(1500)
-
-
-      const leftAnimation = this.animationCtrl
-      .create()
-      .addElement(this.titulo.nativeElement)
-      .keyframes([
-        { offset: 0, transform: 'translateX(0)' },
-        { offset: 0.5, transform: 'translateX(-50%)' },
-        { offset: 1, transform: 'translateX(0)' },
-      ])
       .duration(1500);
 
-    /*Ejecutamos la animacion, de esta forma se activara al cargar la pantalla.*/
-    await rigthAnimation.play();
-    await leftAnimation.play();
-  }
+    const opacityAnimation = this.animationCtrl
+      .create()
+      .addElement(titleElement)
+      .keyframes([
+        { offset: 0, opacity: '1' },
+        { offset: 0.5, opacity: '0.2' },
+        { offset: 1, opacity: '1' },
+      ])
+      .duration(1000);
 
+    const combinedAnimation = this.animationCtrl
+      .create()
+      .addAnimation([translateAnimation, opacityAnimation]);
+
+    const repeatAnimation = async () => {
+      await combinedAnimation.play();
+      setTimeout(repeatAnimation, 2500);
+    };
+
+    repeatAnimation();
+  }
   async limpiarCampos() {
     const inputElements = [
       this.nombreInput.nativeElement,
@@ -109,7 +114,6 @@ export class HomePage {
       this.userData[field] = '';
     }
   }
-
 
   isLoggedIn() {
     const userData = this.userService.getUserData();
