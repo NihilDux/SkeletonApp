@@ -35,18 +35,20 @@ export class LoginPage implements OnInit {
       await this.playLoginAnimation();
       this.router.navigate(['/home']);
     } else {
-      this.presentToast('Falta: ' + validationMessage);
+      this.presentToast('Error: ' + validationMessage);
     }
   }
-
+  
   validateModel(model: any): string {
-    for (const [key, value] of Object.entries(model)) {
-      if (value === '') {
-        return key;
-      }
+    if (model.Usuario.length < 3 || model.Usuario.length > 8) {
+      return 'El usuario debe tener al menos 3 caracteres y un maximo de 8';
+    }
+    if (model.Password.length < 4 || model.Password.length > 4) {
+      return 'La contraseña debe tener 4 caracteres';
     }
     return 'success';
   }
+  
 
   async presentToast(message: string, duration?: number) {
     const toast = await this.toastController.create({
