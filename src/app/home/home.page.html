@@ -3,6 +3,17 @@
     <ion-title class="ion-text-center">
       <h1 #titulo>Bienvenido</h1>
     </ion-title>
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="experiencia">
+        <p>Experiencia Laboral</p>
+      </ion-segment-button>
+      <ion-segment-button value="certificaciones">
+        <p>Certificaciones</p>
+      </ion-segment-button>
+      <ion-segment-button value="misdatos">
+        <p>Mis Datos</p>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 <br>
@@ -11,37 +22,49 @@
     <h2>Usuario: {{ loggedInUserName }}</h2>
   </div>
   <br>
-  <ion-card>
-    <ion-card-content>
-      <ion-item class="input-field ion-padding-horizontal">
-        <ion-label position="floating" class="ion-padding-bottom">Nombre</ion-label>
-        <ion-input #nombreInput type="text" [(ngModel)]="userData.Nombre" (ionChange)="markFieldAsFilled('Nombre')"></ion-input>
-      </ion-item>
+  <div *ngIf="selectedSegment === 'experiencia'">
+    <p>Experiencia laboral:</p>
+  </div>
 
-      <ion-item class="input-field ion-padding-horizontal">
-        <ion-label position="floating" class="ion-padding-bottom">Apellido</ion-label>
-        <ion-input #apellidoInput type="text" [(ngModel)]="userData.Apellido" (ionChange)="markFieldAsFilled('Apellido')"></ion-input>
-      </ion-item>
+  <div *ngIf="selectedSegment === 'certificaciones'">
+    <p>Certificaciones:</p>
+  </div>
 
-      <ion-item class="input-field ion-padding-horizontal">
-        <ion-select #nivelInput label="Nivel de Educación" label-placement="floating" [(ngModel)]="userData.NivelEducacion" (ionChange)="markFieldAsFilled('NivelEducacion')">
-          <ion-select-option *ngFor="let niv of niveles" [value]="niv.id">{{niv.nivel}}</ion-select-option>
-        </ion-select>
-      </ion-item>
+  <div *ngIf="selectedSegment === 'misdatos'">
+    <p>Mis Datos:</p>
+    <ion-card>
+      <ion-card-content>
+        <ion-item class="input-field ion-padding-horizontal">
+          <ion-label position="floating" class="ion-padding-bottom">Nombre</ion-label>
+          <ion-input #nombreInput type="text" [(ngModel)]="userData.Nombre" (ionChange)="markFieldAsFilled('Nombre')"></ion-input>
+        </ion-item>
+  
+        <ion-item class="input-field ion-padding-horizontal">
+          <ion-label position="floating" class="ion-padding-bottom">Apellido</ion-label>
+          <ion-input #apellidoInput type="text" [(ngModel)]="userData.Apellido" (ionChange)="markFieldAsFilled('Apellido')"></ion-input>
+        </ion-item>
+  
+        <ion-item class="input-field ion-padding-horizontal">
+          <ion-select #nivelInput label="Nivel de Educación" label-placement="floating" [(ngModel)]="userData.NivelEducacion" (ionChange)="markFieldAsFilled('NivelEducacion')">
+            <ion-select-option *ngFor="let niv of niveles" [value]="niv.id">{{niv.nivel}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+        <ion-item class="input-field ion-padding-horizontal">
+          <ion-label position="stacked" class="ion-padding-bottom">Fecha de Nacimiento</ion-label>
+          <ion-input #fechaInput class="date-field" type="date" [(ngModel)]="userData.FechaNacimiento" (ionChange)="markFieldAsFilled('FechaNacimiento')"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-content>
+        <ion-button expand="full" (click)="mostrarDatos()" (click)="validateDate()">Mostrar</ion-button>
+        <ion-button expand="full" (click)="limpiarCampos()">Limpiar</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 
-      <ion-item class="input-field ion-padding-horizontal">
-        <ion-label position="stacked" class="ion-padding-bottom">Fecha de Nacimiento</ion-label>
-        <ion-input #fechaInput class="date-field" type="date" [(ngModel)]="userData.FechaNacimiento" (ionChange)="markFieldAsFilled('FechaNacimiento')"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-content>
-      <ion-button expand="full" (click)="mostrarDatos()" (click)="validateDate()">Mostrar</ion-button>
-      <ion-button expand="full" (click)="limpiarCampos()">Limpiar</ion-button>
-    </ion-card-content>
-  </ion-card>
 </ion-content>
 
 <ion-footer>

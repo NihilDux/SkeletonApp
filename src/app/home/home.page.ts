@@ -7,6 +7,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  selectedSegment = 'all';
   /*Se genera referencia del elemento a animar*/
   @ViewChild('titulo', { read: ElementRef }) titulo: ElementRef;
   @ViewChild('nombreInput', { read: ElementRef }) nombreInput: ElementRef;
@@ -45,6 +46,11 @@ export class HomePage {
     this.apellidoInput = ElementRef.prototype as any;
 
   }
+  //Revisar correccion rápida
+  segmentChanged(event: any) {
+    this.selectedSegment = event.target.value;
+  }
+  
 
   /*Utilizamos el metodo ngAfterViewInit que se ejecutara poster a inicializar la vista*/
    async ngAfterViewInit() {
