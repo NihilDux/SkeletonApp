@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard'; // Importa el guardia de ruta AuthGuard
+import { NotFoundPage } from './not-found/not-found.page';
 
 const routes: Routes = [
   {
@@ -19,7 +20,17 @@ const routes: Routes = [
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
   },
-  // Agrega más rutas aquí según sea necesario
+  {
+    path: 'not-found',
+    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
+
+  { 
+    path: 'not-found', component: NotFoundPage 
+  },
+  { 
+    path: '**', redirectTo: 'not-found' 
+  },
 ];
 
 @NgModule({
